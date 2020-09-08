@@ -1,0 +1,41 @@
+\documentclass[landscape,aspectratio=169]{slides}
+
+\usepackage{color, amsmath}
+\usepackage{physics}
+\usepackage{shadow}     % this creates a shaded box; see \shabox below
+
+\title{Tensor Algebra}
+\date{September 10, 2020}
+\author{Aditya Vijaykumar}
+
+\definecolor{dark-magenta}{rgb}{.5,0,.5}
+\definecolor{myblack}{rgb}{0,0,0}
+\definecolor{darkgray}{gray}{0.5}
+\definecolor{lightgray}{gray}{0.75}
+
+\begin{document}
+	
+	\maketitle
+	
+	$y'''+4y''+3y'=x^2\cos x-3x$
+	First, we solve for $y_c$. The auxiliary equation is 
+	\begin{eqnarray*}
+		m^3+4m^2+3m&=m(m^2+4m+3)
+		&=m(m+3)(m+1)\\
+		m&=0, -3, -1
+	\end{eqnarray*}
+	Hence $y_c=c_1+c_2e^{-3}x+c_3e^{-1}$.\par
+	For the left side, the annihilator will be 
+	$$(D^3+4D^2+3D)y$$ $$=D(D^2+4D+3)y$$
+	$$=D(D+3)(D+1)y$$
+	First, we solve for $y_c$. The auxiliary equation is 
+	\begin{eqnarray*}
+		m^3+4m^2+3m&=m(m^2+4m+3)
+		&=m(m+3)(m+1)\\
+		m&=0, -3, -1
+	\end{eqnarray*}
+	Hence $y_c=c_1+c_2e^{-3}x+c_3e^{-1}$.\par
+	For the left side, the annihilator will be 
+	$$(D^3+4D^2+3D)y$$ $$=D(D^2+4D+3)y$$
+	$$=D(D+3)(D+1)y$$
+\end{document}
