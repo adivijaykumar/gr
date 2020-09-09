@@ -31,4 +31,185 @@
 
 \begin{document}
 \maketitle
+\section{Tensors}
+The Newtonian equations of motion are often phrased in the language of vectors. For example, take Newton's law of gravitation which gives the gravitational force between two bodies of mass $ m_1 $ and $ m_2 $ with a separation vector $ \va{r} $ pointing from $ m_1 $ to $ m_2 $
+\begin{equation}\label{key}
+\va{F}_{12} = - G \dfrac{m_1 m_2}{\abs{\va{r}}^3} \va{r}  \qq{.}
+\end{equation}
+Here, $ \va{F}_{12} $ is the force on $ m_2 $ due to $ m_1 $. There are two ways of looking at this equation:
+\begin{itemize}
+	\item A \textit{coordinate-free way}, where we look at these objects as just vectors. The equations written in this form have the advantage that they don't demand any coordinate system to be chosen.
+	\item A \textit{coordinate-dependent way}, where we look at these component-wise.
+\end{itemize}
+
+Before diving straight in to general relativity and the Einstein equations, one should be comfortable with the basic mathematical language that the theory is written in -- tensors. One can think of tensors to be a generalization of vectors; in fact, in the formalism we develop, it would be easy to see that vectos are tensors of a specific kind. Tensor equations can also be looked at in a coordinate-free and coordinate-dependent way; but it is the latter that we will choose to work with here.
+\subsection{Tensor Algebra}
+\subsubsection{Manifolds}
+A tensor is a geometrical object defined on a \textit{manifold}. One can define a manifold in a detailed geometric way, but we (hopefully) won't need that for the purposes of these notes. Instead, we will just say that a manifold in $ n $-dimensions is something that \textit{locally} looks like $ n $-dimensional Euclidean (flat) space $\mathbb{R}^n $. As a simple illustration, let's consider a 2-sphere $ S^2 $. $ S^2 $ and $ \mathbb{R}^2 $ are definitely not the same globally. But a small bit of $ S^2 $ does look like $ \mathbb{R}^2 $. For example, even though the earth is (approximately) spherical, we as \textit{local} humans perceieve it as being flat.
+
+A manifold is then simply a set of points such that each point possesses a set of $ n $-coordinates $ (x^1, x^2, \ldots, x^n) $ which are all real numbers. These could be thought of as the counterpart of distances and angles in the Euclidean plane. Too add to this, it might even be impossible to cover a manifold in full by a non-degenerate coordinate system. Take a Euclidean example: plane polar coordinates have a degeneracy at the origin where $ \phi $ becomes indeterminate, though we could make do with Cartesian coordinates in this case. But in other cases, this freedom might not be available. For example, can be shown that there is no coordinate system that covers the whole of $ S^2 $ without degeneracy. For example, the ``flat'' map of the world (the so called Mercator projection) misses the poles.
+
+As an illustrative example of the above, let's consider the stereographic projection which maps a sphere onto a plane. Let $ A = (x^1, x^2, x^3) $ be the coordinates of a point on the sphere. Consider also the plane $ \mathcal{P} $ defined by $ x^3 = -1 $. The stereographic projection involves drawing a line passing through the north pole and $ A $ and finding the intercept of this line on $ \mathcal{P} $; let's denote the intercept by $ A' = (y^1, y^2) $. We can show that,
+\begin{equation}\label{key}
+(y^1, y^2) = \qty(\dfrac{2x^1}{1 - x^3}, \dfrac{2x^2}{1 - x^3})
+\end{equation}
+
+As can be seen from the above equation, this mapping fails to capture the north pole itself (it maps a finite point onto $ \infty $). For us to include the north pole, we have to redefine the steoreographic mapping by considering a line passing through south pole and $ A $. \textcolor{red}{Think about this a bit more}.
+
+Often, it is convenient to work with only one of these coordinate systems and keep track of the points that aren't included. This coordinate systems is called  a coordinate patch, and a set of coordinate patches that covers the entire manifold is called an atlas.
+
+\subsubsection{Curves and Surfaces}
+Given a manifold, we would be interested in the subset of points that form curves and surfaces. We shall often define them parametrically. For example, since a curve has one degree of freedom, it will depend only on one \textit{parameter}; we can define it by:
+\begin{equation}\label{key}
+x^a = x^a(u) \qq{,}
+\end{equation}
+where $ u $ is the parameter and $ x^1(u), x^2(u), \ldots, x^n(u) $ are all functions of $ u $. Similarly, since a surface of $ m $ dimensions will have m degrees of freedom, we can define it by a set of $ m $ parameters:
+\begin{equation}\label{key}
+x^a = x^a(u^1, u^2, \ldots, u^m) \qq{.}
+\end{equation}
+In particular, if $ m=n-1 $, the surface is called a \textit{hypersurface}. Here, one can eliminate $ n-1 $ parameters from $ n $ equations to give one equation connecting the coordinates \textit{ie.},
+\begin{equation}\label{hyp}
+f(x^1, x^2, \ldots, x^n) = 0 \qq{.}
+\end{equation}
+Equivalently, if a point on an $ n $-dimensional manifold is constrained to lie on a hypersurface, it should follow eq. \ref{hyp}. Similarly, points on an $ m $-dimensional surface should follow $ n-m $ such constraints.
+
+\subsubsection{Transformation of Coordinates}
+While writing down tensor equations, we would like to have it hold in all coordinate systems. Hence, we would like to see how one can realize coordinate transformations.
+
+Let's consider a transformation of coordinates $ x^a $ to $ x'^a =  f^a (x_1, x_2,\ldots, x_n)$, where $ f^a $'s are single-valued, continuous, differentiable functions. We can view this as passively assigning a point with coordinates $ (x^1, x^2,\ldots, x^n) $ the new coordinates $ (x'^1,x'^2, \ldots, x'^n) $. More succintly, we will just use the notation $ x'^a = x'^a(x) $
+
+We now want to see what the transformation will look like. Hence, we differentiate $ x' $ with respect to $ x $ -- this will give us a matrix of coefficients:
+
+\begin{equation}\label{jaco}
+\mqty[\pdv{x'^a}{x^b}] = \mqty[\pdv{x'^1}{x^1} & \pdv{x'^1}{x^2} & \ldots & \pdv{x'^1}{x^n} \\
+\pdv{x'^2}{x^1} & \pdv{x'^2}{x^2} & \ldots & \pdv{x'^2}{x^n} \\
+\vdots & & & \\
+\pdv{x'^n}{x^1} & \pdv{x'^n}{x^2} & \ldots & \pdv{x'^n}{x^n} 
+]
+\end{equation}
+
+The determinant of the above transformation matrix is called the Jacobian $ J' $ of the transformation. If we assume that $ J' $ is non-zero, we can solve eq \ref{jaco} and find the inverse transformation $ x^a = x^a(x') $. Using the product rule of determinants, the Jacobian of the inverse transformation $ J = 1/J'$ 
+
+How would the total differential of $ x'^a $ relate to the transformation matrix? We write,
+\begin{equation}\label{difftransform}
+\dd{x'^a} = \sum_{b = 1}^{n} \pdv{x'^a}{x^b} \dd{x^b} = \pdv{x'^a}{x^b} \dd{x^b}  \qq{,}
+\end{equation}
+
+where we invoke the \textit{Einstein summation convention} to simplify our equations -- we drop the summation altogether and understand that whenever an index is repeated in, it should be summed over. This repeated index is also often called the \textit{bound index} or the \textit{dummy index}.
+
+As an aside, we will also define the \textit{Kronecker delta} to be a quantity which is either $ 0 $ or $ 1 $ according to
+
+\begin{equation}\label{key}
+\delta^a_b = \begin{cases}
+1 \qq{if} a = b\\
+0 \qq{if} a \ne b
+\end{cases} \implies \pdv{x^a}{x^b} = \pdv{x'^a}{x'^b} = \delta^a_b \qq{.}
+\end{equation}
+
+\subsubsection{Contravariant Tensors}
+We now want to define geometrical with reference to their transformation properties under transformations described in the previous section. Before defining contravariant tensors in general, let's first define a contravariant vector.
+
+Consider two neighbouring points on a manifold $ P $ and $ Q $ with coordinates $ x^a $ and $ x^a + \dd{x^a} $. This forms an infinitesimal vector $ \va{PQ} $ attached at $ P $ and directed to $ Q $, whose components in this coordinate system are $ \dd{x^a} $. This vector will get transformed to $ \dd{x'^a} $ in the new coordinate system, where $ \dd{x'^a} $ is given by eq. \ref{difftransform}. Note that the transformation matrix in this case will be evaluated at point $ P $.
+
+We then define a \textit{contravariant vector} $ X^a $ as a set of of quantities associated with point $ P $ which transform under a change of coordinates according to
+
+\begin{equation}\label{key}
+X'^a = \pdv{x'^a}{x^b} X^b \qq{,}
+\end{equation}
+with the transformation matrix evaluated at $ P $. This definition of the contravariant vector can then be generalized to \textit{contravariant tensors}. A contravariant tensor of rank $ m $ in $ n $-dimensions is a set of $ n^m $ quantities associated with a point $ P $ that follow a certain transformation law. For illustrative purposes, in case of $ m=2 $, $ X^{ab} $ is a contravariant tensor if,
+\begin{equation}\label{key}
+X'^{ab} =  \pdv{x'^a}{x^c}  \pdv{x'^b}{x^d} X^{cd} \qq{.}
+ \end{equation}
+The transformation properties of higher rank tensors can be obtained in an analogous manner. A special case is a tensor of rank zero -- which is basically a scalar! This transformation according to $ \phi' = \phi $.
+
+\subsubsection{Covariant and Mixed Tensors}
+Consider a real, continuous, differentiable scalar $ \phi = \phi(x) $. We have seen that $ x^a $ can be written as a function of $ x'^a $. Then, we can imagine differentiating $ \phi $ with respect to $ x'^a $,
+\begin{equation}\label{key}
+\pdv{\phi}{x'^a} = \pdv{\phi}{x^b} \pdv{x^b}{x'^a} \qq{.}
+\end{equation}
+Note that this involves the inverse tranformation from a coordinate system $ x' $ to $ x $. This motivates us to define a covariant vector $ X_a $ as a set of quantities that follows
+\begin{equation}\label{key}
+X'_a = \pdv{x^b}{x'^a} X_b \qq{,}
+\end{equation}
+and analogously we can define a rank $ 2 $ covariant tensor by the law
+\begin{equation}\label{key}
+X'_{ab} = \pdv{x^c}{x'^b} \pdv{x^d}{x'^c} X_{cd} \qq{,}
+\end{equation}
+and so on for higher rank tensors. In the same spirit, we can define mixed tensors of rank $ 3 $ by the law
+
+\begin{equation}\label{key}
+X'^{a}_{bc} =  \pdv{x'^a}{x^d} \pdv{x^e}{x'^b} \pdv{x^f}{x'^c} X^d_{ef} \qq{.} 
+\end{equation}
+
+If a mixed tensor has contravariant rank $ p $ and covariant rank $ q $, it is said to have \textit{type}  or \textit{valence} $ (p,q) $.
+
+Let's say we find two tensors $ X_{ab} $ and $ Y_{ab} $ which are equal component-by-component in a certain coordinate system \textit{ie.} $ X_{ab} = Y_{ab} $. Will the tensors still be equal in a transformed coordinate system? Yes! We can see this by multiplying on both sides by the transformation matrix. In other words, the equality of two tensors would hold true in any and all coordinate systems! We might be interested in introducing coordinate systems for the purposes of a specific problem, but tensorial equations are essentially coordinate-independent.
+
+\subsubsection{Tensor Fields}
+In vector analysis, a \textit{vector field} defined in a region is the association of a vector to every point in that region. Analogously, a tensor field defined in a region is the association of a tensor with the same valence to every point in the region; \textit{ie},
+\begin{equation}\label{key}
+P \rightarrow T^{a \ldots}_{b\ldots} (P) \qq{,}
+\end{equation}
+where $  T^{a \ldots}_{b\ldots} (P) $ is the value of the tensor at $ P $. As one might expect, the tensor field is called continuous and differentiable if its coordinates are continuous and differentiable functions. The tensor field is called smooth is its components are differentiable to all orders, denoted mathematically by saying that the components are $ C^\infty $.
+
+\subsubsection{Elementary Operations}
+
+\begin{itemize}
+	\item $X^a_{bc} = Y^a_{bc} + Z^a_{bc}$
+	\item $ X^a_{bc} = \alpha W^a_{bc} $, where $ \alpha $ is a scalar.
+	\item A covariant tensor of rank $ 2 $,  $ X_{ab} $, is said to be symmetric if $ X_{ab} = X_{ba} $. In this case, it has $ \frac{n(n+1)}{2} $ independent components.
+	\item A covariant tensor of rank $ 2 $,  $ X_{ab} $, is said to be anti-symmetric if $ X_{ab} = -X_{ba} $. In this case, it has $ \frac{n(n-1)}{2} $ independent components.
+	\item Given a covariant tensor of rank $ 2 $, one can write it as a sum of a symmetric tensor and an anti-symmetric tensor,
+	\begin{align*}
+	X_{ab} = &X_{(ab)} + X_{[ab]} \qq{,} \\
+	\qq{where} X_{(ab)} = \dfrac{X_{ab} + X_{ba}}{2} &\qq{and} X_{[ab]} = \dfrac{X_{ab} - X_{ba}}{2} \qq{.}
+	\end{align*}
+	\item In general,
+	\begin{align*}
+		X_{(a_1 a_2 \ldots a_r)} &= \dfrac{1}{r!} \text{(sum over all permutations of indices)} \\
+		X_{[a_1 a_2 \ldots a_r]} &= \dfrac{1}{r!} \text{(alternating sum over all permutations of indices)} 	\qq{.}	
+	\end{align*}
+	For example, 
+	\begin{equation}\label{key}
+	X_{[abc] }  = \dfrac{1}{6!} \qty(X_{abc} -X_{acb} + X_{cab} - X_{cba} + X_{bca} - X_{bac}) \qq{.}
+	\end{equation}
+	\item We can multiply a type $ (p_1, q_1) $ tensor and a type $ (p_2, q_2) $ tensor to get a type $ (p_1+p_2, q_1+q_2) $ tensor, \textit{eg.} $ X^a_{bcd}  = Y^a_b Z_{cd}$
+	
+	\item Given a tensor of type $ (p,q) $, we can construct a type $ (p-1, q-1) $ tensor by the process of contraction \textit{ie} said a raised index equal to the lower index, \textit{eg} $ X^{a}_{bcd} \rightarrow_{contraction}  X^{a}_{acd}  = \delta_a^b X^{a}_{acd} = Y_{cd}$.
+
+\end{itemize}
+
+\subsubsection{Index-free interpretation of covariant tensor fields}
+
+In the $ x^a $-coordinate system, let's introduce the following notation,
+\begin{equation}\label{key}
+\partial_a = \pdv{x^a} \qq{.}
+\end{equation}
+We then define an operator $ X $ as,
+\begin{equation}\label{key}
+X = X^a \partial_a \implies Xf = X^a \partial_a f = X^a (\partial_a f) \qq{,}
+\end{equation}
+where $ f $ is an arbitrary real-valued function. It can be proved that the operator $ X $ is does not depend on the choice of the coordinate system and hence $ X = X^a \pdv{x^a} =X'^a \pdv{x'^a}  $. Hence, operating $ X $ on $ f $ will lead to the same result irrespective of the coordinate system used.
+
+Since any vector at $ P $ is given by the above equation, we can think of the quantities $ [\partial_a]_P $ as forming the basis for all the vectors at $ P $, and $ [X^a]_P $ being the components. The vector space of all the contravariant vectors at $ P $ is called the \textit{tangent space} at $ P $ and it denoted by $T_P(M)$.
+
+Given two vector fields $ X $ and $ Y $, we can define a new vector field called the \textit{commutator} or the \textit{Lie bracket} of $ X $ and $ Y $ by
+\begin{equation}\label{key}
+\qty[X, Y] = XY - YX \qq{.}
+\end{equation}
+How are we sure the commutator is indeed a vector field? Consider the action of the commutator on a scalar function $ f $,
+\begin{align*}
+	\qty[X, Y] f &= XYf - YXf \\
+	&= X^a \partial_a ( Y^b \partial_b f  ) - Y^b \partial_b (X^a \partial_a ) f \\
+	&=\qty(X^a \partial_a Y^b \partial_b    - Y^b \partial_b X^a \partial_a ) f  + \qty(X^a Y^b \partial_a  \partial_b f - Y^b X^a \partial_b \partial_a f) \\
+	& = \qty(X^b \partial_b Y^a     - Y^b \partial_b X^a ) \partial_a f \qq{,} 
+\end{align*}
+which proves that $ \qty[X,Y] $ is a vector field.
+
+The properties of the Lie bracket are:
+\begin{itemize}
+	\item  $ \qty[X,X] = 0 $
+	\item $ \comm{X}{Y} = - \comm{Y}{X} $
+	\item \textit{Jacobi Identity}: $ \comm{X}{\comm{Y}{Z}} + \comm{y}{\comm{Z}{X}} + \comm{Z}{\comm{X}{Y}} = 0 $
+\end{itemize}
 \end{document}
