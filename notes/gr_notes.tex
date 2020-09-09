@@ -47,7 +47,7 @@ Before diving straight in to general relativity and the Einstein equations, one 
 \subsubsection{Manifolds}
 A tensor is a geometrical object defined on a \textit{manifold}. One can define a manifold in a detailed geometric way, but we (hopefully) won't need that for the purposes of these notes. Instead, we will just say that a manifold in $ n $-dimensions is something that \textit{locally} looks like $ n $-dimensional Euclidean (flat) space $\mathbb{R}^n $. As a simple illustration, let's consider a 2-sphere $ S^2 $. $ S^2 $ and $ \mathbb{R}^2 $ are definitely not the same globally. But a small bit of $ S^2 $ does look like $ \mathbb{R}^2 $. For example, even though the earth is (approximately) spherical, we as \textit{local} humans perceieve it as being flat.
 
-A manifold is then simply a set of points such that each point possesses a set of $ n $-coordinates $ (x^1, x^2, \ldots, x^n) $ which are all real numbers. These could be thought of as the counterpart of distances and angles in the Euclidean plane. Too add to this, it might even be impossible to cover a manifold in full by a non-degenerate coordinate system. Take a Euclidean example: plane polar coordinates have a degeneracy at the origin where $ \phi $ becomes indeterminate, though we could make do with Cartesian coordinates in this case. But in other cases, this freedom might not be available. For example, can be shown that there is no coordinate system that covers the whole of $ S^2 $ without degeneracy. For example, the ``flat'' map of the world (the so called Mercator projection) misses the poles.
+A manifold is then simply a set of points such that each point possesses a set of $ n $-coordinates $ (x^1, x^2, \ldots, x^n) $ which are all real numbers. These could be thought of as the counterpart of distances and angles in the Euclidean plane. Too add to this, it might even be impossible to cover a manifold in full by a non-degenerate coordinate system. Take a Euclidean example: plane polar coordinates have a degeneracy at the origin where $ \phi $ becomes indeterminate, though we could make do with Cartesian coordinates in this case. But in other cases, this freedom might not be available. For example, it can be shown that there is no coordinate system that covers the whole of $ S^2 $ without degeneracy. For example, the ``flat'' map of the world (the so called Mercator projection) misses the poles.
 
 As an illustrative example of the above, let's consider the stereographic projection which maps a sphere onto a plane. Let $ A = (x^1, x^2, x^3) $ be the coordinates of a point on the sphere. Consider also the plane $ \mathcal{P} $ defined by $ x^3 = -1 $. The stereographic projection involves drawing a line passing through the north pole and $ A $ and finding the intercept of this line on $ \mathcal{P} $; let's denote the intercept by $ A' = (y^1, y^2) $. We can show that,
 \begin{equation}\label{key}
@@ -56,7 +56,7 @@ As an illustrative example of the above, let's consider the stereographic projec
 
 As can be seen from the above equation, this mapping fails to capture the north pole itself (it maps a finite point onto $ \infty $). For us to include the north pole, we have to redefine the steoreographic mapping by considering a line passing through south pole and $ A $. \textcolor{red}{Think about this a bit more}.
 
-Often, it is convenient to work with only one of these coordinate systems and keep track of the points that aren't included. This coordinate systems is called  a coordinate patch, and a set of coordinate patches that covers the entire manifold is called an atlas.
+Often, it is convenient to work with only one of these coordinate systems and keep track of the points that aren't included. This coordinate system is called  a coordinate patch, and a set of coordinate patches that covers the entire manifold is called an atlas.
 
 \subsubsection{Curves and Surfaces}
 Given a manifold, we would be interested in the subset of points that form curves and surfaces. We shall often define them parametrically. For example, since a curve has one degree of freedom, it will depend only on one \textit{parameter}; we can define it by:
@@ -95,7 +95,7 @@ How would the total differential of $ x'^a $ relate to the transformation matrix
 \dd{x'^a} = \sum_{b = 1}^{n} \pdv{x'^a}{x^b} \dd{x^b} = \pdv{x'^a}{x^b} \dd{x^b}  \qq{,}
 \end{equation}
 
-where we invoke the \textit{Einstein summation convention} to simplify our equations -- we drop the summation altogether and understand that whenever an index is repeated in, it should be summed over. This repeated index is also often called the \textit{bound index} or the \textit{dummy index}.
+where we invoke the \textit{Einstein summation convention} to simplify our equations -- we drop the summation altogether and understand that whenever an index is repeated, it should be summed over. This repeated index is also often called the \textit{bound index} or the \textit{dummy index}.
 
 As an aside, we will also define the \textit{Kronecker delta} to be a quantity which is either $ 0 $ or $ 1 $ according to
 
@@ -107,7 +107,7 @@ As an aside, we will also define the \textit{Kronecker delta} to be a quantity w
 \end{equation}
 
 \subsubsection{Contravariant Tensors}
-We now want to define geometrical with reference to their transformation properties under transformations described in the previous section. Before defining contravariant tensors in general, let's first define a contravariant vector.
+We now want to define geometrical quantities with reference to their transformation properties under transformations described in the previous section. Before defining contravariant tensors in general, let's first define a contravariant vector.
 
 Consider two neighbouring points on a manifold $ P $ and $ Q $ with coordinates $ x^a $ and $ x^a + \dd{x^a} $. This forms an infinitesimal vector $ \va{PQ} $ attached at $ P $ and directed to $ Q $, whose components in this coordinate system are $ \dd{x^a} $. This vector will get transformed to $ \dd{x'^a} $ in the new coordinate system, where $ \dd{x'^a} $ is given by eq. \ref{difftransform}. Note that the transformation matrix in this case will be evaluated at point $ P $.
 
@@ -120,7 +120,7 @@ with the transformation matrix evaluated at $ P $. This definition of the contra
 \begin{equation}\label{key}
 X'^{ab} =  \pdv{x'^a}{x^c}  \pdv{x'^b}{x^d} X^{cd} \qq{.}
  \end{equation}
-The transformation properties of higher rank tensors can be obtained in an analogous manner. A special case is a tensor of rank zero -- which is basically a scalar! This transformation according to $ \phi' = \phi $.
+The transformation properties of higher rank tensors can be obtained in an analogous manner. A special case is a tensor of rank zero -- which is basically a scalar! This transforms according to $ \phi' = \phi $.
 
 \subsubsection{Covariant and Mixed Tensors}
 Consider a real, continuous, differentiable scalar $ \phi = \phi(x) $. We have seen that $ x^a $ can be written as a function of $ x'^a $. Then, we can imagine differentiating $ \phi $ with respect to $ x'^a $,
