@@ -1,0 +1,317 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bes}{\begin{equation*}}
+\newcommand{\ees}{\end{equation*}}
+\newcommand{\bea}{\begin{flalign*}}
+\newcommand{\eea}{\end{flalign*}}
+
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Assignment\ \#1}
+\newcommand{\hmwkDueDate}{September 23, 2020}
+\newcommand{\hmwkClass}{Introduction to General Relativity}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Prof. Bala Iyer}
+\newcommand{\hmwkAuthorName}{\textbf{Aditya Vijaykumar}}
+
+%
+% Title Page
+%
+
+\title{
+    %\vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{\hmwkDueDate\ }\\
+%    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+\textit{\textbf{Note} --- All problem numbers refer to the exercises numbers in d'Inverno}.
+\begin{homeworkProblem}
+	\textit{\textbf{Exercise 5.2}}\\
+	Given: $ x^a = (x,y,z) $ and $ x'^a  = \qty(r, \theta, \phi)$. The relation between the coordinates is the following:
+	\begin{align}\label{key}
+	x = r \cos \phi \sin \theta \qq{,}y = r \sin \phi \sin \theta \qq{,} z = r \cos \theta \\
+	r = \sqrt{x^2 + y^2 + z^2} \qq{,} \cos \theta = \dfrac{z}{ \sqrt{x^2 + y^2 + z^2}} = \dfrac{z}{r} \qq{,} \tan \phi = \dfrac{y}{x}
+	\end{align}
+	The transformation matrix is given by:
+	\begin{align}\label{key}
+		\mqty[\pdv{x^a}{x'^b}] = \mqty[\pdv{x}{r} & \pdv{y}{r} & \pdv{z}{r} \\
+		\pdv{x}{\theta} & \pdv{y}{\theta} & \pdv{z}{\theta} \\
+		\pdv{x}{\phi} & \pdv{y}{\phi} & \pdv{z}{\phi} \\]^T &= \mqty[\cos \phi \sin \theta  &  \sin \phi \sin \theta & \cos \theta \\ 
+		r \cos \phi \cos \theta &  r \sin \phi \cos \theta & - r \sin \theta \\
+		-r \sin \phi \sin \theta & r \cos \phi \sin \theta & 0]^T \\
+		J &= \abs{\mqty[\pdv{x^a}{x'^b}]} = r^2 \sin \theta
+	\end{align}
+	
+	\begin{align}\label{key}
+	\mqty[\pdv{x'^a}{x^b}] = \mqty[\pdv{r}{x} & \pdv{r}{y} & \pdv{r}{z} \\
+	\pdv{\theta}{x} & \pdv{\theta}{y} & \pdv{\theta}{z} \\
+	\pdv{\phi}{x} & \pdv{\phi}{y} & \pdv{\phi}{z} \\]  
+	&= \mqty[\dfrac{x}{\sqrt{x^2 + y^2 + z^2}} & \dfrac{y}{\sqrt{x^2 + y^2 + z^2}}& \dfrac{z}{\sqrt{x^2 + y^2 + z^2}} \\
+	\dfrac{xz}{\sqrt{x^2+ y^2} (x^2 + y^2 + z^2)} & \dfrac{yz}{\sqrt{x^2+ y^2} (x^2 + y^2 + z^2)} & - \dfrac{\sqrt{x^2 + y^2}}{x^2 + y^2 + z^2 }\\
+	 \dfrac{-y}{{x^2 + y^2}}& \dfrac{x}{{x^2 + y^2}} &0\\]  \\
+	 J' = 1/J &= \dfrac{1}{\sqrt{(x^2 + y^2 + z^2 )(x^2 + y^2)}}
+	\end{align}
+    
+    For finite $ x, y ,z $, $ J' $ is never zero. It is infinite for $ (x,y,z) = (0,0,a) $, where $ a $ is any real number.
+    
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\textit{\textbf{Exercise 5.5}}\\
+	Given: $ Y^a  $ and $ Z^a $ are contravariant vectors, meaning they obey the contravariant transformation laws.
+	\begin{equation}\label{key}
+	\implies Y'^a = \pdv{x'^a}{x^b } Y^b \qq{and }  Z'^a = \pdv{x'^a}{x^b } Z^b 
+	\end{equation}
+	Let $T^{ab} =  Y^a Z^b $. Note that we haven't yet proved that $ T^{ab} $ is a tensor --- to prove this, it would suffice to show $ T'^{ab} =  Y'^a Z'^b $, where the primed quantities denote objects transformed as per the contravariant transformation laws. Now consider $ Y'^a Z'^b $
+	\begin{align}\label{key}
+		Y'^a Z'^b &= \pdv{x'^a}{x^c } Y^c \pdv{x'^b}{x^d } Z^d \\
+		& = \pdv{x'^a}{x^c }\pdv{x'^b}{x^d }  Y^c  Z^d  \\
+		& = \pdv{x'^a}{x^c }\pdv{x'^b}{x^d }  T^{cd} \\
+		Y'^a Z'^b  &= T'^{ab}
+	\end{align}
+	Hence proved.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\textit{\textbf{Exercise 5.8}}\\
+	Consider applying the transformation laws to $ \delta^a_b $ and using properties of the Kronecker delta,
+	\begin{align}\label{key}
+	\pdv{x'^a}{x^c }  \pdv{x^d}{x'^b } \delta^c_d &= \pdv{x'^a}{x^c }  \pdv{x^c}{x'^b } \\
+	&= \pdv{x'^a}{x'^b } \\
+	&= \delta'^a_b
+	\end{align}
+	This proves that the Kronecker delta does indeed have tensor character.
+	\\
+	
+	Also, as the Kronecker delta is given by $ \pdv{x^a}{x^b} $ in a given frame, it has components $ \text{diag}(1,1,1,1) $ in all frames. This means it is a \textit{constant tensor}.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\textit{\textbf{Exercise 5.9}}\\
+	Consider differentiating $ \pdv{\phi}{x'^a} $ wrt $ x'^c $,
+	\begin{align}
+		\pdv{}{x'^c} \qty{\pdv{\phi}{x'^a}} &= \pdv{x^d}{x'^c} \pdv{}{x^d} \qty{ \pdv{x^b}{x'^a}\pdv{\phi}{x^b}} \\
+		&= \pdv{x^d}{x'^c} \pdv{x^b}{x'^a}\pdv{\phi}{x^b}{x^d} + \pdv{x^d}{x'^c} \pdv{x^b}{x'^a}{x^d}\pdv{\phi}{x^b} \\
+		&= \pdv{x^d}{x'^c} \pdv{x^b}{x'^a}\pdv{\phi}{x^b}{x^d} +  \pdv{x^b}{x'^a}{x'^c}\pdv{\phi}{x^b}
+	\end{align}
+	If $ \pdv{\phi}{x'^c}{x'^a } $ is to transform as a tensor, the second term on the RHS of the last equation should be zero. One can see that though one can construct specific cases in which this term is zero, it is not possible to do so in general. Hence proved that $ \pdv{\phi}{x^a}{x^b} $ is not a tensor.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\textit{\textbf{Exercise 5.13}}\\
+	Consider $ Y_c = \delta^b_a X^a_{bc} $,
+	\begin{align}\label{key}
+		Y'_c &= \delta'^b_a X'^a_{bc} \\
+		&= \delta^b_a \times \pdv{x'^a}{x^v}  \pdv{x^w}{x'^b}\pdv{x^y}{x'^c} X^v_{wy} \\
+		&=  \pdv{x'^a}{x^v}  \pdv{x^w}{x'^a}\pdv{x^y}{x'^c} X^v_{wy} \\
+		&=  \pdv{x^w}{x^v}\pdv{x^y}{x'^c} X^v_{wy} \\
+		&=  \delta^w_v \pdv{x^y}{x'^c} X^v_{wy} \\
+		Y'^c  &= 	\pdv{x^y}{x'^c} X^v_{vy} =	\pdv{x^y}{x'^c} Y_y 
+	\end{align}
+	Hence, we have seen that $ Y_c $ transforms as a covariant vector.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\textit{\textbf{Exercise 5.14}}\\
+	\begin{align}\label{key}
+		\delta^a_a =  \delta^1_1 + \delta^2_2 + \ldots + \delta^n_n = 1 + 1 + \ldots  (n \text{ times}) =  n  \\
+		\delta^a_b \delta^b_a = \delta^a_a = n
+	\end{align}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\textit{\textbf{Exercise 5.16}}\\
+	
+	\textit{Part (i)}\\
+	Given: In $ \mathbb{R}^2 $, $ x^a = (x,y) $ and $ x'^a = (R, \phi) $.
+	\begin{equation}\label{key}
+	R = \sqrt{x^2 + y^2} \qq{and} \tan \phi = \dfrac{y}{x}
+	\end{equation}
+	\begin{equation}\label{key}
+	\mqty[\pdv{x'^a}{x^b}] = \mqty[\dfrac{x}{\sqrt{x^2 + y^2}} & \dfrac{y}{\sqrt{x^2 + y^2}} \\
+	-\dfrac{y}{x^2 + y^2} & \dfrac{x}{x^2 + y^2}] 
+	\end{equation}
+	\begin{equation}\label{key}
+	\boxed{\qq{if}  X^a = (1,0) \qq{then} X'^a = (1, 0)}
+	\end{equation}
+	\\
+	
+	\textit{Part (ii)}\\
+	We have,
+	\begin{equation}\label{key}
+	\grad f \vdot \vb{i} = \pdv{f}{x} \qq{,}\grad f \vdot \vb{j} = \pdv{f}{y} \qq{,}\grad f \vdot \vb{\vu{R}} = \pdv{f}{R} \qq{,}\grad f \vdot \vu{\phi} =\dfrac{1}{R} \pdv{f}{\phi} 
+	\end{equation}
+	
+	But, by using expressions of $ \vu{R} $ and $ \vu{\phi} $ in the $ \vb{i}, \vb{j} $ coordinates, we have,
+	\begin{equation}\label{key}
+	\grad{f } \vdot \vu{R} = \cos \phi \pdv{f}{x} + \sin \phi \pdv{f}{y} \qq{and} \grad{f } \vdot \vu{\phi} = - \sin \phi \pdv{f}{x} + \cos \phi \pdv{f}{y} 
+	\end{equation}
+	Using these equations, we have,
+	\begin{equation}\label{key}
+	\pdv{}{R} = \cos \phi \pdv{}{x} + \sin \phi \pdv{}{y} \qq{and} \dfrac{1}{R} \pdv{}{\phi }  = - \sin \phi \pdv{}{x} + \cos \phi \pdv{}{y} 
+	\end{equation}
+	\\
+	
+	\textit{Part (iii)}\\
+	In the cartesian coordinate system,
+	\begin{equation}\label{key}
+	X = x \pdv{}{x} + y \pdv{}{y}
+	\end{equation}
+	In the polar coordinate system,
+	\begin{align}\label{key}
+	X' &= \qty(\pdv{R}{x} x  + \pdv{R}{y} y)\pdv{}{R} +   \qty(\pdv{\phi}{x} x   + \pdv{\phi}{y} y)\pdv{}{\phi} \\
+	&= \qty(\dfrac{x}{R}x  + \dfrac{y}{R} y)\pdv{}{R} +   \qty(\dfrac{-y}{R^2} x   + \dfrac{x}{R^2} y)\pdv{}{\phi} \\
+	&= \qty(\dfrac{x^2 + y^2}{R})\pdv{}{R}  \\
+	&= R\pdv{}{R} = x \pdv{}{x} + y \pdv{}{y} = X \\
+	\end{align}
+	
+	Substituting $ X^a = (1,0) $,
+	\begin{equation}\label{key}
+	X = \pdv{}{x}
+	\end{equation}\\
+	
+	\textit{Part (iv)}\\
+	If $ Y^a = (0,1) $, then using the result from \textit{part (i)}, $ Y'^a = (1,0) $ and $ Y = \pdv{}{y} $
+	
+	If $ Z^a = (-y,x ) $, then $ Z'^a = (0,1) $ and $ Z = -y \pdv{}{x} + x\pdv{}{y} $
+	\\
+	
+	\textit{Part (v)}\\
+	\begin{align}\label{key}
+	\comm{X}{Y} &= \pdv{}{x} \pdv{}{y} -  \pdv{}{y} \pdv{}{x} = 0 
+	\end{align}
+	\begin{align}
+	\comm{Y}{Z} &= \pdv{}{y} \qty{-y \pdv{}{x} + x\pdv{}{y}} - \qty{-y \pdv{}{x} + x\pdv{}{y}} \qty{\pdv{}{y}} \\
+	&= - \pdv{}{x} -y \pdv{y} \pdv{}{x} + x\pdv[2]{y} + y \pdv{x} \pdv{y} - x \pdv[2]{y}\\
+	&= - \pdv{}{x}  = - X
+	\end{align}
+	
+	\begin{align}
+		\comm{X}{Z} &=  \pdv{}{x} \qty{-y \pdv{}{x} + x\pdv{}{y}} - \qty{-y \pdv{}{x} + x\pdv{}{y}} \qty{\pdv{}{x}}\\
+		&= -y \pdv[2]{x} + \pdv{y} + x \pdv{x}\pdv{y} + y \pdv[2]{x} -  x \pdv{x}\pdv{y}\\
+		&= \pdv{y} = Y
+	\end{align}
+\end{homeworkProblem}
+\end{document}

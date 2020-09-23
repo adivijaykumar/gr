@@ -212,4 +212,28 @@ The properties of the Lie bracket are:
 	\item $ \comm{X}{Y} = - \comm{Y}{X} $
 	\item \textit{Jacobi Identity}: $ \comm{X}{\comm{Y}{Z}} + \comm{Y}{\comm{Z}{X}} + \comm{Z}{\comm{X}{Y}} = 0 $
 \end{itemize}
+
+\subsection{Tensor Calculus}
+\subsubsection{Partial Differentiation of Tensors does not yield a Tensor}
+
+Consider,
+\begin{align}
+\partial'_c X'^a &= \pdv{x'^c} \qty(\pdv{x'^a}{x^b} X^b) \\
+&= \pdv{x^d}{x'^c} \pdv{x^d} \qty(\pdv{x'^a}{x^b} X^b) \\
+&= \pdv[2]{x'^a}{x^b}{ x^d} \pdv{x^d}{x'^c} X^b + \pdv{x^d}{x'^c} \pdv{x'^a}{x^b} \pdv{X^b}{x^d} 
+\end{align}
+This exercise clearly shows that the partial derivative \textit{does not} transform as a tensor.
+
+Why is this so? Taking a partial derivative really means taking the difference between two points $ P $ and $ Q $, dividing it by the separation, and taking the limit as separation goes to zero. The transformation law of tensors depends on each point, hence the difference of two vectors can have different magnitudes in different coordinate systems. So, the difference of two vectors \textit{is not a vector}, and hence the derivative of a tensor does not transform as a vector in general.
+
+\subsubsection{The Lie Derivative}
+A \textit{congruence of curves} is defined as a set of curves such that exactly one curve passes through a given point on the manifold. This is denoted by $ x^a = x^a(u) $. Given this, we can define the tangent vector field $ \dv{x^a}{u} $ along the curve. Doing this for every curve in the congruence, we end up with a vector field $ X^a $ given by $ \dv{x^a}{u} $ at each point and defined over the whole manifold.
+
+Conversely, we can think of a vector field $ X^a(u) $ defined on the manifold and can then define a congruence of curves on the manifold, called \textit{orbits} or \textit{trajectories} of $ X^a $. These curves can be obtained by solving the equation
+\begin{equation}\label{key}
+\dv{x^a}{u} = X^a(x(u)) \qq{.}
+\end{equation}
+
+Say we have an arbitrary tensor $ T^{a \ldots}_{b \ldots} $ and quantities $ T_P $ and $ T_Q $ defined at two points $ P $ and $ Q $.
+
 \end{document}
