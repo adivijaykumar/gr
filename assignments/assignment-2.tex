@@ -1,0 +1,370 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bes}{\begin{equation*}}
+\newcommand{\ees}{\end{equation*}}
+\newcommand{\bea}{\begin{flalign*}}
+\newcommand{\eea}{\end{flalign*}}
+
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Assignment\ \#2}
+\newcommand{\hmwkDueDate}{October 4, 2020}
+\newcommand{\hmwkClass}{Introduction to General Relativity}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Prof. Bala Iyer}
+\newcommand{\hmwkAuthorName}{\textbf{Aditya Vijaykumar}}
+
+%
+% Title Page
+%
+
+\title{
+    %\vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{\hmwkDueDate\ }\\
+%    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\textit{Note -- Due to some health complications, I wasn't able to attempt the last two problems completely. Please do consider the parts I have done for ``grading''; I shall attach full solutions with the next assignment (just so that the tutor can check it).}
+%\pagebreak
+
+\begin{homeworkProblem}
+	Given that $ s $ is an affine parameter, \textit{ie.},
+	\begin{equation}\label{key}
+	\dv[2]{x^a}{s} + \Gamma^a_{bc} \dv{x^b}{s} \dv{x^c}{s} = 0 \qq{.}
+	\end{equation}
+	Let us assume that $ \bar{s} $ is also an affine parameter,
+	\begin{align}\label{key}
+	\dv[2]{x^a}{\bar{s}} + \Gamma^a_{bc} \dv{x^b}{\bar{s}} \dv{x^c}{\bar{s}} &= 0 \\
+	\therefore \dv{s}{\bar{s} } \dv{s} \qty(\dv{s}{\bar{s} } \dv{x^a}{s})+ \Gamma^a_{bc} \qty(\dv{s}{\bar{s} })^2 \dv{x^b}{s} \dv{x^c}{s} &= 0  \\
+	\therefore \qty(\dv{s}{\bar{s} })^2 \dv[2]{x^a}{s} + \Gamma^a_{bc} \qty(\dv{s}{\bar{s} })^2 \dv{x^b}{s} \dv{x^c}{s} + \qty(\dv{s}{\bar{s} })  \dv{x^a}{s}  \dv[2]{s}{\bar{s}} \dv{\bar{s}}{s}&= 0 \\
+	\therefore\qty(\dv{s}{\bar{s} })^2 \qty(\dv[2]{x^a}{s} + \Gamma^a_{bc} \dv{x^b}{s} \dv{x^c}{s}) +  \dv{x^a}{s}  \dv[2]{s}{\bar{s}} &= 0  \\
+	\therefore \dv{x^a}{s}  \dv[2]{s}{\bar{s}} &= 0   \\
+	\therefore \dv[2]{s}{\bar{s}} &= 0 \qq{.}
+	\end{align}
+     The last equation means that $ s = \alpha' \bar{s} + \beta'   $ or $ \bar{s} = \alpha s + \beta $ for constant $ \alpha, \beta $.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\textit{Note -- I have used $ \lambda_\star $ instead of $ \lambda^\star $}
+	
+	Given,
+	\begin{align}
+	\dv[2]{x^a}{\lambda} +  \Gamma^a_{bc} \dv{x^b}{\lambda} \dv{x^c}{\lambda}  = k \dv{x^a}{\lambda} \\
+	\dv[2]{x^a}{\lambda_\star} +  \Gamma^a_{bc} \dv{x^b}{\lambda_\star} \dv{x^c}{\lambda_\star}  = 0
+	\end{align}
+	Using the approach similar to the previous problem, we can write the first equation as follows,
+	\begin{align}\label{key}
+	\qty(\dv{\lambda}{\lambda})^2 \qty(\dv[2]{x^a}{\lambda_\star} +  \Gamma^a_{bc} \dv{x^b}{\lambda_\star} \dv{x^c}{\lambda_\star})  + \dv{x^a}{\lambda_\star} \dv[2]{\lambda_\star}{\lambda} &= k \dv{x^a}{\lambda} \\
+	\implies \dv{x^a}{\lambda}  \dv{\lambda}{\lambda_\star} \dv[2]{\lambda_\star}{\lambda} &= k \dv{x^a}{\lambda} 
+	\end{align}
+	\begin{align}
+	\implies \dv{\lambda}{\lambda_\star} \dv[2]{\lambda_\star}{\lambda} &= k \\
+	\implies \dfrac{1}{t} \dv{t}{\lambda} &= k \qq{where } t = \dv{\lambda_\star}{\lambda}\\
+	\implies \log t &= \int k \dd \lambda\\
+	\implies t = \dv{\lambda_\star}{\lambda} &= \exp(k \dd \lambda)
+	\end{align}
+	
+	Hence Proved.
+
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}
+	If a manifold is affine flat, we can find a coordinate system in which $ \Gamma'^a_{bc} = 0 $ identically. As the Riemann tensor is a combination of the $ \Gamma $'s, this would imply that the Riemann tensor vanishes identically in that coordinate system. This would also mean that the Riemann tensor vanishes in every coordinate system, meaning that there would be identically zero curvature everywhere. Hence, parallel transported vectors would not be dependent on the path taken, making the connections integrable.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	The metric for $ \mathbb{R}^3 $ in cylindrical polar coordinates is given by,
+	\begin{equation}\label{key}
+	\dd{s}^2 = \dd{r}^2 + r^2 \dd{\phi}^2  + \dd{z}^2 \implies g_{ab} = \text{diag}(1, r^2, 1)
+	\end{equation}
+	We know that the metric connection $ \Gamma^a_{bc} $ is given by,
+	\begin{equation}\label{key}
+	 \Gamma^a_{bc} = \dfrac{1}{2} g^{ad} \qty(\partial_b g_{cd} + \partial_c g_{bd} - \partial_d g_{bc})
+	\end{equation}
+	Since all metric components except for $ g_{\phi \phi} $ are constant, the only non-zero connection would be $ \Gamma^{r}_{\phi \phi} = -r $.
+	
+	Hence the geodesic equation is,
+	\begin{equation}\label{key}
+	\dv[2]{x^a}{s} + \delta^a_r (-r) \qty(\dv{\phi}{s})^2 = 0
+	\end{equation}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	Consider the covariant derivative of the metric tensor,
+	\begin{equation}\label{key}
+	\grad_c g_{ab} = \partial_c g_{ab} - \Gamma^d_{ca} g_{db} - \Gamma^d_{cb} g_{da} \qq{.}
+	\end{equation}
+	Consider $ \Gamma^d_{ca} g_{db} $,
+	\begin{align}\label{key}
+	\Gamma^a_{bc} g_{ae } &= \dfrac{1}{2} g^{ad} g_{ae }  \qty(\partial_b g_{cd} + \partial_c g_{bd} - \partial_d g_{bc}) \\ 
+	&= \dfrac{1}{2} \delta^d_e \qty(\partial_b g_{cd} + \partial_c g_{bd} - \partial_d g_{bc}) \\ 
+	&= \dfrac{1}{2} \qty(\partial_b g_{ce} + \partial_c g_{be} - \partial_e g_{bc}) \\ 
+	\therefore \Gamma^d_{ca} g_{db} + \Gamma^d_{cb} g_{da} &= \dfrac{1}{2} \qty(\partial_c g_{ab} + \partial_a g_{cb} - \partial_b g_{ca} + \partial_c g_{ba} + \partial_b g_{ba} - \partial_a g_{bc}) \\
+	&= \partial_c g_{ab}
+	\end{align}
+	Hence,
+	\begin{equation}\label{key}
+	\grad_c g_{ab} = \partial_c g_{ab} -  \partial_c g_{ab} = 0
+	\end{equation}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	Consider a set of coordinates $ z^a = (\lambda, \nu) $ such that $g'^{ab} =  g_{cd} z^a_{,c} z^b_{,d}$. Further, we demand that these coordinates be along null curves \textit{ie},
+	\begin{equation}\label{key}
+	g'^{00} =  g_{cd} z^0_{,c} z^0_{,d} = 0 \qq{and }g'^{11} =  g_{cd} z^1_{,c} z^1_{,d} = 0
+	\end{equation}
+	Therefore,
+	\begin{equation}\label{key}
+	\dd s^2 = 2 g'^{01} \dd{\lambda} \dd{\nu}
+	\end{equation}
+	
+	From here, we can just redefine $ t = \dfrac{\lambda + \nu}{2} $, $ u =   \dfrac{\lambda - \nu}{2}$ which gives,
+	\begin{equation}\label{key}
+	\dd s^2 = 2 g'^{01} (\dd t^2 - \dd u^2)
+	\end{equation}
+	We can always choose the directions of $ \lambda, \nu $ such that $ g'^{01} $ always remains positive. Hence we can write $ 2 g'^{01} = \Omega^2$, thereby proving the required result. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	To prove the ``if and only if'' statement, we have to prove,
+	\begin{equation}\label{implications}
+	R_{ab} = 0 \implies G_{ab} = 0 \qq{and} G_{ab} = 0 \implies R_{ab} = 0 
+	\end{equation}
+If $ G_{ab}=0 $, then,
+\begin{align}\label{key}
+	R_{ab} - \dfrac{1}{2} g_{ab} R =0
+	\implies g^{ab}R_{ab} - \dfrac{1}{2} g^{ab} g_{ab} R = 0 \implies R - \dfrac{1}{2}R = 0 \implies R =0
+\end{align}
+\begin{align}
+	\therefore R_{ab} - \dfrac{1}{2} g_{ab} R = R_{ab} = 0
+\end{align}
+
+If $ R_{ab}=0 $ then, $ R = g^{ab} R_{ab} = 0 $, and hence $ G_{ab} = 0 $.
+
+We have hence proved both statements in eq \ref{implications}, thereby proving $ G_{ab} $ vanishes if and only if $ R_{ab} $ vanishes.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\textit{Part (a)}\\
+	We can read off $ g_{ab} $,
+	\begin{equation}\label{key}
+	g_{ab} = \text{diag}(e^\nu, - e^\lambda, -r^2,  - r^2 \sin^2 \theta) \implies g = \det{g_{ab}} = - e^{\nu - \lambda} r^4 \sin^2 \theta
+	\end{equation}
+	The inverse of the diagonal matrix is a diagonal matrix with the reciprocal components,
+	\begin{equation}\label{key}
+	g^{ab} = \text{diag}(e^{-\nu}, - e^{-\lambda}, -1/r^2,  - 1/r^2 \csc^2 \theta) 
+	\end{equation}
+	
+	\textit{Part (b)}\\
+	Before solving the problem in gory detail, we again note that the metric  has nonzero components only along the diagonal.
+	
+	\begin{align}\label{key}
+	\Gamma^r_{bc} &= \dfrac{1}{2} g^{rd} \qty(\partial_b g_{cd} + \partial_c g_{bd} - \partial_d g_{bc}) \\
+	 &= \dfrac{1}{2} g^{rr} \qty(\partial_b g_{cr} + \partial_c g_{br} - \partial_r g_{bc}) \\
+	 &= \dfrac{1}{2} g^{rr} \qty(\partial_b g_{rr} \delta^r_c + \partial_c g_{r r}\delta^r_b - \partial_r g_{bc})  
+ 	\end{align}
+ 	
+ 	\begin{align}\label{key}
+ 	\Gamma^r_{tt} = \dfrac{1}{2}(- e^{-\lambda})   e^\nu \pdv{\nu}{r} \qq{,} \Gamma^r_{rr} = \dfrac{1}{2}( e^{-\lambda}) e^\lambda \pdv{\lambda}{r} = \dfrac{1}{2}\pdv{\lambda}{r} &\qq{,} \Gamma^r_{tr}  = \Gamma^r_{rt}  = \dfrac{1}{2}(  e^{-\lambda}) (e^{\lambda}) \pdv{\lambda}{t} = \dfrac{1}{2}\pdv{\lambda}{t} \\
+ 	\Gamma^r_{\theta \theta } =  e^{-\lambda} r &\qq{, } \Gamma^r_{\phi \phi} =  e^{-\lambda} r \sin^ 2\theta
+ 	\end{align}
+ 	
+ 	
+ 	All other $ \Gamma^r_{bc} $ are zero.
+ 	
+ 	\begin{align}\label{key}
+ 	\Gamma^t_{bc} &= \dfrac{1}{2} g^{td} \qty(\partial_b g_{cd} + \partial_c g_{bd} - \partial_d g_{bc}) \\
+ 	&= \dfrac{1}{2} g^{tt} \qty(\partial_b g_{ct} + \partial_c g_{bt} - \partial_t g_{bc}) \\
+ 	&= \dfrac{1}{2} g^{tt} \qty(\partial_b g_{tt } \delta_c^t + \partial_c g_{tt} \delta_b^t - \partial_t g_{bc}) 
+ 	\end{align}
+
+	\begin{align}\label{key}
+	\Gamma^t_{tt} = \dfrac{1}{2} \pdv{\nu}{t} \qq{,} \Gamma^t_{rr} = -\dfrac{1}{2}( e^{-\nu}) e^\lambda \pdv{\lambda}{t} &\qq{,} \Gamma^t_{tr}  = \Gamma^t_{rt}  = \dfrac{1}{2}(  e^{-\nu}) (e^{\nu}) \pdv{\nu}{r} = \dfrac{1}{2}\pdv{\nu}{r} 
+	\end{align}
+	
+	All other $ \Gamma^t_{bc} $ are zero.
+
+ 	\begin{align}\label{key}
+	\Gamma^\theta_{bc} &= \dfrac{1}{2} g^{\theta d} \qty(\partial_b g_{cd} + \partial_c g_{bd} - \partial_d g_{bc}) \\
+	&= \dfrac{1}{2} g^{\theta \theta} \qty(\partial_b g_{\theta\theta} \delta^\theta_c + \partial_c g_{\theta\theta} \delta^\theta_d  - \partial_\theta g_{bc}) 
+	\end{align}
+	
+	\begin{align}\label{key}
+	\Gamma^\theta_{\phi \phi} = \dfrac{1}{2} \qty(\dfrac{-1}{r^2}) (r^2 \sin 2 \theta)  = \dfrac{\sin 2\theta }{2}  &\qq{,} \Gamma^\theta_{\theta r} = \Gamma^\theta_{ r \theta} =  \dfrac{1}{r}
+	\end{align}
+	All other $ \Gamma^\theta_{bc} $ are zero.
+ 	\begin{align}\label{key}
+	 \Gamma^\phi_{bc} &= \dfrac{1}{2} g^{\phi d} \qty(\partial_b g_{cd} + \partial_c g_{bd} - \partial_d g_{bc}) \\
+	&= \dfrac{1}{2} g^{\phi \phi} \qty(\partial_b g_{\phi\phi}\delta_c^\phi + \partial_c g_{\phi\phi} \delta_b^\phi - \partial_\phi g_{bc}) \\
+	&= \dfrac{1}{2} g^{\phi \phi} \qty(\partial_b g_{\phi\phi}\delta_c^\phi + \partial_c g_{\phi\phi} \delta_b^\phi)
+	\end{align}	
+	
+	\begin{align}
+	\Gamma^\phi_{r \phi}  = \Gamma^\phi_{\phi r} =  \dfrac{1}{r} \qq{and} \Gamma^\phi_{\theta \phi}  = \Gamma^\phi_{\phi \theta} = \cot \theta
+	\end{align}
+	All other $ \Gamma^\phi_{bc} $ are zero.\\
+	
+	\textit{Part (c)}\\
+	\begin{equation}\label{key}
+	R^a_{bcd} = \partial_c \Gamma^a_{bd} - \partial_d \Gamma^a_{bc} + \Gamma^e_{bd} \Gamma^a_{ec} - \Gamma^e_{bc} \Gamma^a_{ed}
+	\end{equation}
+	
+	
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	The metric in cylindrical polar coordinates is,
+	\begin{equation}\label{key}
+	\dd s^2 = \dd \rho^2 + \rho^2 \dd \phi^2 + \dd z^2  
+	\end{equation}
+	Consider a cone with apex at the origin and opening in the positive $ z $-direction with opening angle $ 2\alpha $. Then,
+	\begin{align}\label{key}
+	\rho  = r \sin \alpha &\qq{,}  z = r \cos \alpha \\
+	\implies \dd \rho = \dd r \sin \alpha &\qq{,}  \dd z = \dd r \cos \alpha \\
+	\implies \dd \rho^2 = \dd r^2  \sin^2 \alpha  &\qq{,} \dd z^2 = \dd {r}^2 \cos^2 \alpha 
+	\end{align}
+	
+	Using these, the metric transforms to,
+	\begin{align}\label{key}
+	\dd s^2 &= \dd r^2   + r^2 \sin^2 \alpha \dd{\phi}^2
+	\end{align}
+	
+	The infinistesimal transformations are,
+	\begin{align}\label{key}
+	\dd x = \dfrac{1}{\sqrt{2} } \qty[\dd{r} + r \sin\alpha \dd{\phi}] \qq{and} \dd y = \dfrac{1}{\sqrt{2} } \qty[\dd{r} - r \sin\alpha \dd{\phi}]
+	\end{align}
+	Hence,
+	\begin{align}\label{key}
+	\pdv{x}{r} = \dfrac{1}{\sqrt{2}} \qq{and} \pdv{x}{\phi} = \dfrac{r \sin \alpha}{\sqrt{2}} \qq{and}  \pdv{y}{r} = \dfrac{1}{\sqrt{2}} \qq{and} \pdv{y}{\phi} = -\dfrac{r \sin \alpha}{\sqrt{2}}
+	\end{align}
+	The coordinates defined by these transformations will exclude the origin itself. 
+	
+	The non-trivial connections here are $ \Gamma^r_{\phi \phi} = 2 r \sin^2 \alpha  $ and $ \Gamma^{\phi}_{r \phi} =\Gamma^{\phi}_{ \phi r}  = - \dfrac{1}{r} $. Consider a vector $ X^a $, the parallel transported vector along the curve $ Y^a  $ of constant $ r $ would be $ Y^a \grad_a X^b $.
+\end{homeworkProblem}
+
+
+\end{document}
